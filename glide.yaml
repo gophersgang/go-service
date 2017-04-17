@@ -1,0 +1,13 @@
+package: github.com/remerge/go-service
+import:
+- package: github.com/davecgh/go-spew
+  subpackages:
+  - spew
+- package: github.com/gin-gonic/gin
+- package: github.com/rcrowley/go-metrics
+  subpackages:
+  - exp
+- package: github.com/spf13/cobra
+- package: github.com/tylerb/graceful
+- package: github.com/bobziuchkovski/cue
+- package: github.com/remerge/go-lock_free_timer
