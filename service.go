@@ -80,11 +80,6 @@ func NewService(name string, port int) *Service {
 	service.Log = cue.NewLogger(name)
 	service.Command = service.buildCommand()
 	service.Server.Port = port
-	service.Server.Engine = gin.New()
-	service.Server.Engine.Use(
-		ginRecovery(service.Name),
-		ginLogger(service.Name),
-	)
 	return service
 }
 
@@ -219,6 +214,13 @@ func (service *Service) buildCommand() *cobra.Command {
 		default:
 			gin.SetMode("debug")
 		}
+
+		// initialize engine after setting gin mode
+		service.Server.Engine = gin.New()
+		service.Server.Engine.Use(
+			ginRecovery(service.Name),
+			ginLogger(service.Name),
+		)
 	}
 
 	return cmd
