@@ -10,6 +10,8 @@ import (
 )
 
 func setLogFormat() {
+	level := cue.INFO
+
 	formatter := format.Formatf(
 		"%v [%v:%v] %v",
 		format.Level,
@@ -19,6 +21,7 @@ func setLogFormat() {
 	)
 
 	if !env.IsProd() {
+		level = cue.DEBUG
 		formatter = format.Colorize(
 			format.Formatf(
 				"%v %v",
@@ -28,7 +31,7 @@ func setLogFormat() {
 		)
 	}
 
-	cue.Collect(cue.DEBUG, collector.Terminal{
+	cue.Collect(level, collector.Terminal{
 		Formatter: formatter,
 	}.New())
 }
